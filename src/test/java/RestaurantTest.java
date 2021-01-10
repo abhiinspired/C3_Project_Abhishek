@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.time.LocalTime;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -12,6 +13,7 @@ class RestaurantTest {
     LocalTime openingTime = LocalTime.now().minusHours(5);
     LocalTime closingTime = LocalTime.now().plusHours(5);
     Restaurant restaurant = new Restaurant("Amelie's cafe","Chennai",openingTime,closingTime);;
+
     //REFACTOR ALL THE REPEATED LINES OF CODE
 
 
@@ -38,8 +40,6 @@ class RestaurantTest {
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>MENU<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     @Test
     public void adding_item_to_menu_should_increase_menu_size_by_1(){
-        restaurant.addToMenu("Sweet corn soup",119);
-        restaurant.addToMenu("Vegetable lasagne", 269);
 
         int initialMenuSize = restaurant.getMenu().size();
         restaurant.addToMenu("Sizzling brownie",319);
@@ -63,4 +63,19 @@ class RestaurantTest {
                 ()->restaurant.removeFromMenu("French fries"));
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    @Test
+    public void adding_items_to_the_list_should_give_total_amount_and_removing_should_update_amount(){
+        restaurant.addToMenu("Sweet corn soup",119);
+        restaurant.addToMenu("Vegetable lasagne", 269);
+        restaurant.addOrRemoveItemsToList(restaurant.getMenu().get(0), true);
+        restaurant.addOrRemoveItemsToList(restaurant.getMenu().get(1), true);
+
+        int totalCost = restaurant.addItemsTotal();
+        assertThat(totalCost, equalTo(388));
+
+        restaurant.addOrRemoveItemsToList(restaurant.getMenu().get(1), false);
+        totalCost = restaurant.addItemsTotal();
+        assertThat(totalCost, equalTo(119));
+    }
 }

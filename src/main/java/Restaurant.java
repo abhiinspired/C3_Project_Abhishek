@@ -9,6 +9,8 @@ public class Restaurant {
     public LocalTime openingTime;
     public LocalTime closingTime;
     private List<Item> menu = new ArrayList<Item>();
+    private List<Item> selectedItems = new ArrayList<Item>();
+
 
     public Restaurant(String name, String location, LocalTime openingTime, LocalTime closingTime) {
         this.name = name;
@@ -30,6 +32,11 @@ public class Restaurant {
 
     public List<Item> getMenu() {
         return menu;
+    }
+
+
+    public void clearItemsList(){
+        selectedItems.clear();
     }
 
     private Item findItemByName(String itemName){
