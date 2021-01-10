@@ -34,6 +34,28 @@ public class Restaurant {
         return menu;
     }
 
+    //Adding or Removing items to the selected list
+    public void addOrRemoveItemsToList(Item selectedItem,boolean addItem){
+        if(addItem) {
+            selectedItems.add(selectedItem);
+        }else {
+            for(int i=0; i < selectedItems.size(); i++) {
+                if(selectedItem.getName().equals(selectedItems.get(i).getName())){
+                    selectedItems.remove(i);
+                }
+            }
+        }
+    }
+
+
+    // calculate the total amount
+    public int addItemsTotal(){
+        int itemsTotal = 0;
+        for(Item item: selectedItems) {
+            itemsTotal += item.getPrice();
+        }
+        return itemsTotal;
+    }
 
     public void clearItemsList(){
         selectedItems.clear();
